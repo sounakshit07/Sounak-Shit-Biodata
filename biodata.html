@@ -104,13 +104,12 @@
       animation: morphAvatar 10s infinite alternate ease-in-out;
       margin-bottom: 0.5rem;
     }
-    .avatar-frame img {
+    .avatar-frame svg {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      border-radius: inherit;
-      background: #1e242e;
       display: block;
+      border-radius: inherit;
+      background: #121a24;
     }
     @keyframes morphAvatar {
       0% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; }
@@ -143,6 +142,13 @@
       border: 1px solid rgba(0, 230, 200, 0.15);
       letter-spacing: 0.5px;
       margin-top: 4px;
+      transition: 0.3s;
+      cursor: default;
+    }
+    .name-title .badge:hover {
+      background: rgba(0, 230, 200, 0.2);
+      border-color: #5eead4;
+      box-shadow: 0 0 25px rgba(0, 230, 200, 0.15);
     }
 
     .divider-light {
@@ -168,11 +174,17 @@
       font-size: 1rem;
     }
     .contact-mini span {
-      background: rgba(255,255,255,0.02);
+      background: rgba(255, 255, 255, 0.02);
       padding: 0.2rem 0.8rem;
       border-radius: 40px;
-      border: 1px solid rgba(255,255,255,0.03);
+      border: 1px solid rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(2px);
+      transition: 0.3s;
+      cursor: default;
+    }
+    .contact-mini span:hover {
+      background: rgba(0, 230, 200, 0.06);
+      border-color: rgba(0, 230, 200, 0.15);
     }
 
     .social-icons {
@@ -196,6 +208,20 @@
       border: 1px solid rgba(255, 255, 255, 0.03);
       transition: 0.25s;
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .social-icons a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      background: radial-gradient(circle at center, rgba(0, 230, 200, 0.15), transparent 70%);
+      opacity: 0;
+      transition: 0.4s;
+    }
+    .social-icons a:hover::after {
+      opacity: 1;
     }
     .social-icons a:hover {
       background: rgba(0, 230, 200, 0.12);
@@ -235,11 +261,16 @@
       font-weight: 300;
       line-height: 1.7;
       font-size: 1rem;
-      background: rgba(0,0,0,0.15);
+      background: rgba(0, 0, 0, 0.15);
       padding: 1rem 1.4rem;
       border-radius: 28px;
       border-left: 3px solid #5eead4;
       backdrop-filter: blur(2px);
+      transition: 0.3s;
+    }
+    .about-text:hover {
+      background: rgba(0, 0, 0, 0.2);
+      border-left-color: #a855f7;
     }
 
     .grid-2col {
@@ -269,6 +300,7 @@
       font-size: 1.05rem;
       margin-top: 2px;
       word-break: break-word;
+      transition: 0.3s;
     }
     .info-item .value i {
       color: #5eead4;
@@ -293,25 +325,36 @@
       backdrop-filter: blur(2px);
       transition: 0.2s;
       letter-spacing: 0.2px;
+      cursor: default;
     }
     .skill-tags span:hover {
       background: rgba(0, 230, 200, 0.12);
       border-color: #5eead4;
       color: #f0faff;
       transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 230, 200, 0.05);
     }
 
     .exp-item {
       display: flex;
       gap: 1rem;
-      background: rgba(0,0,0,0.1);
+      background: rgba(0, 0, 0, 0.1);
       padding: 0.8rem 1.2rem;
       border-radius: 20px;
       backdrop-filter: blur(2px);
-      border: 1px solid rgba(255,255,255,0.02);
+      border: 1px solid rgba(255, 255, 255, 0.02);
       margin-bottom: 0.6rem;
+      transition: 0.3s;
+      cursor: default;
     }
-    .exp-item:last-child { margin-bottom: 0; }
+    .exp-item:last-child {
+      margin-bottom: 0;
+    }
+    .exp-item:hover {
+      background: rgba(0, 0, 0, 0.2);
+      border-color: rgba(0, 230, 200, 0.08);
+      transform: translateX(4px);
+    }
     .exp-year {
       font-weight: 600;
       color: #5eead4;
@@ -342,10 +385,31 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      transition: 0.4s;
+    }
+    .quote-block:hover {
+      background: linear-gradient(145deg, rgba(0, 200, 180, 0.08), rgba(168, 85, 247, 0.08));
+      border-color: rgba(0, 230, 200, 0.08);
     }
     .quote-block i {
       color: #5eead4;
       font-size: 1.2rem;
+    }
+
+    /* interactive status dot pulse */
+    .status-pulse {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #5eead4;
+      margin-right: 8px;
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(94, 234, 212, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(94, 234, 212, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(94, 234, 212, 0); }
     }
 
     /* responsive */
@@ -376,144 +440,419 @@
       }
     }
     @media (max-width: 480px) {
-      .card { padding: 1.2rem; }
-      .avatar-frame { max-width: 100px; }
-      .name-title h1 { font-size: 1.8rem; }
-      .exp-item { flex-wrap: wrap; }
+      .card {
+        padding: 1.2rem;
+      }
+      .avatar-frame {
+        max-width: 100px;
+      }
+      .name-title h1 {
+        font-size: 1.8rem;
+      }
+      .exp-item {
+        flex-wrap: wrap;
+      }
     }
 
     /* scroll custom */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #141b24; }
-    ::-webkit-scrollbar-thumb { background: #2a3a4a; border-radius: 12px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3f5a70; }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #141b24;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a3a4a;
+      border-radius: 12px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f5a70;
+    }
+
+    /* js interaction classes */
+    .glow-effect {
+      box-shadow: 0 0 30px rgba(0, 230, 200, 0.15);
+    }
+    .bounce-in {
+      animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
   </style>
 </head>
 <body>
-<div class="card">
-  <div class="biodata-grid">
+  <div class="card" id="biodataCard">
+    <div class="biodata-grid">
 
-    <!-- LEFT: avatar + name + contacts -->
-    <div class="profile-panel">
-      <div class="avatar-frame">
-        <!-- SVG placeholder: abstract cool avatar / initials -->
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; display:block; border-radius:inherit; background: #121a24;">
-          <defs>
-            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#00d4b0" />
-              <stop offset="100%" stop-color="#a855f7" />
-            </linearGradient>
-            <circle id="dot" cx="100" cy="100" r="12" fill="rgba(0,230,200,0.2)" />
-          </defs>
-          <rect width="200" height="200" fill="#121a24" rx="50" ry="50" />
-          <circle cx="100" cy="80" r="42" fill="url(#grad1)" opacity="0.2" />
-          <circle cx="100" cy="80" r="30" fill="url(#grad1)" opacity="0.15" />
-          <text x="100" y="120" font-family="'Space Grotesk', sans-serif" font-size="68" font-weight="700" fill="url(#grad1)" text-anchor="middle" dominant-baseline="middle" letter-spacing="2">S</text>
-          <text x="100" y="172" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="300" fill="#7b93b5" text-anchor="middle" letter-spacing="3">● SHIT</text>
-          <circle cx="60" cy="50" r="6" fill="#5eead4" opacity="0.3" />
-          <circle cx="150" cy="150" r="8" fill="#a855f7" opacity="0.2" />
-          <circle cx="30" cy="130" r="4" fill="#5eead4" opacity="0.2" />
-        </svg>
+      <!-- LEFT: avatar + name + contacts -->
+      <div class="profile-panel">
+        <div class="avatar-frame" id="avatarFrame">
+          <!-- SVG placeholder: abstract cool avatar / initials -->
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00d4b0" />
+                <stop offset="100%" stop-color="#a855f7" />
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="#121a24" rx="50" ry="50" />
+            <circle cx="100" cy="80" r="42" fill="url(#grad1)" opacity="0.2" />
+            <circle cx="100" cy="80" r="30" fill="url(#grad1)" opacity="0.15" />
+            <text x="100" y="120" font-family="'Space Grotesk', sans-serif" font-size="68" font-weight="700" fill="url(#grad1)" text-anchor="middle" dominant-baseline="middle" letter-spacing="2">S</text>
+            <text x="100" y="172" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="300" fill="#7b93b5" text-anchor="middle" letter-spacing="3">● SHIT</text>
+            <circle cx="60" cy="50" r="6" fill="#5eead4" opacity="0.3" />
+            <circle cx="150" cy="150" r="8" fill="#a855f7" opacity="0.2" />
+            <circle cx="30" cy="130" r="4" fill="#5eead4" opacity="0.2" />
+          </svg>
+        </div>
+
+        <div class="name-title">
+          <h1>Sounak Shit</h1>
+          <div class="badge" id="badgeTitle"><i class="fas fa-bolt" style="margin-right: 6px;"></i> digital architect</div>
+        </div>
+        <div class="divider-light"></div>
+
+        <div class="contact-mini">
+          <span><i class="fas fa-phone-alt"></i> +91 95642 40323</span>
+          <span><i class="fas fa-envelope"></i> shitsounak@gmail.com</span>
+          <span><i class="fas fa-map-pin"></i> Hooghly, India</span>
+        </div>
+
+        <div class="social-icons">
+          <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
       </div>
 
-      <div class="name-title">
-        <h1>Sounak Shit</h1>
-        <div class="badge"><i class="fas fa-bolt" style="margin-right: 6px;"></i> digital architect</div>
-      </div>
-      <div class="divider-light"></div>
+      <!-- RIGHT: detailed biodata -->
+      <div class="info-panel">
 
-      <div class="contact-mini">
-        <span><i class="fas fa-phone-alt"></i> +91 95642 40323</span>
-        <span><i class="fas fa-envelope"></i> shitsounak@gmail.com</span>
-        <span><i class="fas fa-map-pin"></i> Hooghly, India</span>
-      </div>
+        <!-- about -->
+        <div>
+          <div class="section-title"><i class="fas fa-user-astronaut"></i> about</div>
+          <div class="about-text" id="aboutText">
+            <i class="fas fa-quote-left" style="color:#5eead4; opacity:0.6; margin-right:6px;"></i>
+            Designer & developer with a passion for immersive interfaces,
+            generative art, and human-centric systems. Building the future,
+            one pixel at a time.
+          </div>
+        </div>
 
-      <div class="social-icons">
-        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      </div>
+        <!-- personal details grid -->
+        <div>
+          <div class="section-title"><i class="fas fa-id-card"></i> personal</div>
+          <div class="grid-2col">
+            <div class="info-item">
+              <span class="label"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i> birth</span>
+              <span class="value" id="birthValue">23 dec 2012</span>
+            </div>
+            <div class="info-item">
+              <span class="label"><i class="fas fa-flag"></i> nationality</span>
+              <span class="value">Indian</span>
+            </div>
+            <div class="info-item">
+              <span class="label"><i class="fas fa-graduation-cap"></i> education</span>
+              <span class="value">Haripur D.P.M High School</span>
+            </div>
+            <div class="info-item">
+              <span class="label"><i class="fas fa-heart"></i> status</span>
+              <span class="value" id="statusValue">
+                <span class="status-pulse"></span> open to work
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- skills -->
+        <div>
+          <div class="section-title"><i class="fas fa-code"></i> skills & tools</div>
+          <div class="skill-tags" id="skillTags">
+            <span>Python</span><span>Backend Development</span><span>cricket</span>
+          </div>
+        </div>
+
+        <!-- experience / highlights -->
+        <div>
+          <div class="section-title"><i class="fas fa-briefcase"></i> experience</div>
+          <div class="exp-item">
+            <span class="exp-year">2026 – now</span>
+            <span class="exp-desc"><strong>Become a Backend developer</strong></span>
+          </div>
+          <div class="exp-item">
+            <span class="exp-year">2024 – 2025</span>
+            <span class="exp-desc"><strong>Learning Python</strong></span>
+          </div>
+          <div class="exp-item">
+            <span class="exp-year">2021 – 2023</span>
+            <span class="exp-desc"><strong>Learning Basics</strong></span>
+          </div>
+        </div>
+
+        <!-- quote / fun fact -->
+        <div class="quote-block" id="quoteBlock">
+          <i class="fas fa-microchip"></i>
+          “Design is not just how it looks, but how it works, feels, and evolves.”
+          <span style="margin-left:auto; font-style:normal; opacity:0.5; font-size:0.8rem;">— Sounak</span>
+        </div>
+
+      </div> <!-- /info-panel -->
+    </div> <!-- /biodata-grid -->
+
+    <!-- tiny footer note (cool) -->
+    <div style="margin-top:2.2rem; border-top:1px solid rgba(255,255,255,0.02); padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; font-size:0.7rem; color:#4c627a; letter-spacing:0.3px;">
+      <span><i class="fas fa-circle" style="color:#5eead4; font-size:0.4rem; vertical-align:middle; margin-right:8px;"></i> biodata · sounak shit · v3.0</span>
+      <span id="liveTime"><i class="fas fa-clock" style="margin-right:6px;"></i> loading...</span>
     </div>
-
-    <!-- RIGHT: detailed biodata -->
-    <div class="info-panel">
-
-      <!-- about -->
-      <div>
-        <div class="section-title"><i class="fas fa-user-astronaut"></i> about</div>
-        <div class="about-text">
-          <i class="fas fa-quote-left" style="color:#5eead4; opacity:0.6; margin-right:6px;"></i>
-          Designer & developer with a passion for immersive interfaces, 
-          generative art, and human-centric systems. Building the future, 
-          one pixel at a time.
-        </div>
-      </div>
-
-      <!-- personal details grid -->
-      <div>
-        <div class="section-title"><i class="fas fa-id-card"></i> personal</div>
-        <div class="grid-2col">
-          <div class="info-item">
-            <span class="label"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i> birth</span>
-            <span class="value">23 dec 2012</span>
-          </div>
-          <div class="info-item">
-            <span class="label"><i class="fas fa-flag"></i> nationality</span>
-            <span class="value">Indian</span>
-          </div>
-          <div class="info-item">
-            <span class="label"><i class="fas fa-graduation-cap"></i> education</span>
-            <span class="value">Haripur D.P.M High School</span>
-          </div>
-          <div class="info-item">
-            <span class="label"><i class="fas fa-heart"></i> status</span>
-            <span class="value"><i class="fas fa-circle" style="color:#5eead4; font-size:0.55rem; vertical-align:middle;"></i> open to work</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- skills -->
-      <div>
-        <div class="section-title"><i class="fas fa-code"></i> skills & tools</div>
-        <div class="skill-tags">
-          <span>Python</span><span>Backend Development</span><span>cricket</span>
-        </div>
-      </div>
-
-      <!-- experience / highlights -->
-      <div>
-        <div class="section-title"><i class="fas fa-briefcase"></i> experience</div>
-        <div class="exp-item">
-          <span class="exp-year">2026 – now</span>
-          <span class="exp-desc"><strong>Become a Backend developer</strong>
-        </div>
-        <div class="exp-item">
-          <span class="exp-year">2024 – 2025</span>
-          <span class="exp-desc"><strong>Learning Python</strong>
-        </div>
-        <div class="exp-item">
-          <span class="exp-year">2021 – 2023</span>
-          <span class="exp-desc"><strong>Learning Basics</strong>
-        </div>
-      </div>
-
-      <!-- quote / fun fact -->
-      <div class="quote-block">
-        <i class="fas fa-microchip"></i>
-        “Design is not just how it looks, but how it works, feels, and evolves.”
-        <span style="margin-left:auto; font-style:normal; opacity:0.5; font-size:0.8rem;">— Sounak</span>
-      </div>
-
-    </div> <!-- /info-panel -->
-  </div> <!-- /biodata-grid -->
-
-  <!-- tiny footer note (cool) -->
-  <div style="margin-top:2.2rem; border-top:1px solid rgba(255,255,255,0.02); padding-top:1.2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; font-size:0.7rem; color:#4c627a; letter-spacing:0.3px;">
-    <span><i class="fas fa-circle" style="color:#5eead4; font-size:0.4rem; vertical-align:middle; margin-right:8px;"></i> biodata · sounak shit · v2.0</span>
-    <span><i class="fas fa-sync-alt" style="margin-right:6px; opacity:0.5;"></i> always evolving</span>
   </div>
-</div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ---------- 1. LIVE CLOCK ----------
+      function updateClock() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const el = document.getElementById('liveTime');
+        if (el) {
+          el.innerHTML = `<i class="fas fa-clock" style="margin-right:6px;"></i> ${timeStr}`;
+        }
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      // ---------- 2. BADGE CLICK: cycle titles ----------
+      const badge = document.getElementById('badgeTitle');
+      const titles = [
+        'digital architect',
+        'full-stack dreamer',
+        'creative coder',
+        'backend enthusiast',
+        'future builder'
+      ];
+      let titleIndex = 0;
+      if (badge) {
+        badge.addEventListener('click', function(e) {
+          e.stopPropagation();
+          titleIndex = (titleIndex + 1) % titles.length;
+          const icon = this.querySelector('i');
+          this.innerHTML = `<i class="fas fa-bolt" style="margin-right: 6px;"></i> ${titles[titleIndex]}`;
+          // re-append icon reference
+          this.prepend(icon);
+          // add a little bounce
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
+        });
+      }
+
+      // ---------- 3. AVATAR CLICK: morph speed toggle (extra fun) ----------
+      const avatar = document.getElementById('avatarFrame');
+      let morphSpeed = 10;
+      if (avatar) {
+        avatar.addEventListener('click', function() {
+          // toggle animation duration for fun
+          const current = this.style.animationDuration || '10s';
+          if (current === '10s' || current === '') {
+            this.style.animationDuration = '3s';
+            this.style.boxShadow = '0 0 50px rgba(0, 230, 200, 0.4)';
+          } else {
+            this.style.animationDuration = '10s';
+            this.style.boxShadow = '0 15px 35px rgba(0, 200, 180, 0.25)';
+          }
+        });
+      }
+
+      // ---------- 4. STATUS TOGGLE (click on status) ----------
+      const statusEl = document.getElementById('statusValue');
+      let statusIndex = 0;
+      const statuses = [
+        'open to work',
+        'building cool stuff',
+        'learning daily',
+        'available for collab',
+        '🌟 coding vibes'
+      ];
+      if (statusEl) {
+        statusEl.addEventListener('click', function(e) {
+          e.stopPropagation();
+          statusIndex = (statusIndex + 1) % statuses.length;
+          const dot = this.querySelector('.status-pulse');
+          this.innerHTML = '';
+          if (dot) this.appendChild(dot);
+          this.append(' ' + statuses[statusIndex]);
+          // re-append dot if needed
+          const newDot = document.createElement('span');
+          newDot.className = 'status-pulse';
+          this.prepend(newDot);
+          // small animation
+          this.style.transform = 'scale(0.96)';
+          setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
+        });
+      }
+
+      // ---------- 5. QUOTE CLICK: change quote ----------
+      const quoteBlock = document.getElementById('quoteBlock');
+      const quotes = [
+        { text: '“Design is not just how it looks, but how it works, feels, and evolves.”', author: '— Sounak' },
+        { text: '“Code is poetry in motion, and every bug is a plot twist.”', author: '— Sounak' },
+        { text: '“The best interface is the one you don’t notice.”', author: '— Sounak' },
+        { text: '“Simplicity is the ultimate sophistication.”', author: '— Da Vinci (via Sounak)' },
+        { text: '“Building the future, one commit at a time.”', author: '— Sounak' }
+      ];
+      let quoteIndex = 0;
+      if (quoteBlock) {
+        quoteBlock.addEventListener('click', function(e) {
+          e.stopPropagation();
+          quoteIndex = (quoteIndex + 1) % quotes.length;
+          const q = quotes[quoteIndex];
+          const icon = this.querySelector('i');
+          const authorSpan = this.querySelector('span');
+          this.innerHTML = '';
+          this.appendChild(icon);
+          this.append(' ' + q.text + ' ');
+          const newSpan = document.createElement('span');
+          newSpan.style.marginLeft = 'auto';
+          newSpan.style.fontStyle = 'normal';
+          newSpan.style.opacity = '0.5';
+          newSpan.style.fontSize = '0.8rem';
+          newSpan.textContent = q.author;
+          this.appendChild(newSpan);
+          // animate
+          this.style.transform = 'scale(0.97)';
+          setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
+        });
+      }
+
+      // ---------- 6. SKILL TAGS: click to highlight & show extra ----------
+      const skillContainer = document.getElementById('skillTags');
+      if (skillContainer) {
+        skillContainer.addEventListener('click', function(e) {
+          const tag = e.target.closest('span');
+          if (!tag) return;
+          // toggle a 'selected' style
+          const isSelected = tag.style.background === 'rgba(0, 230, 200, 0.25)';
+          // reset all
+          this.querySelectorAll('span').forEach(sp => {
+            sp.style.background = 'rgba(0, 230, 200, 0.06)';
+            sp.style.borderColor = 'rgba(0, 230, 200, 0.12)';
+            sp.style.color = '#c8defa';
+            sp.style.transform = 'scale(1)';
+          });
+          if (!isSelected) {
+            tag.style.background = 'rgba(0, 230, 200, 0.25)';
+            tag.style.borderColor = '#5eead4';
+            tag.style.color = '#f0faff';
+            tag.style.transform = 'scale(1.05)';
+            tag.style.boxShadow = '0 0 30px rgba(0, 230, 200, 0.1)';
+          } else {
+            // if it was selected, just deselect (already reset above)
+          }
+        });
+      }
+
+      // ---------- 7. BIRTH YEAR CLICK: add fun fact ----------
+      const birthVal = document.getElementById('birthValue');
+      if (birthVal) {
+        birthVal.addEventListener('click', function() {
+          const facts = [
+            '23 dec 2012 · 🎂',
+            '23 dec 2012 · 🌟',
+            '23 dec 2012 · 🚀',
+            '23 dec 2012 · 💫',
+            '23 dec 2012 · 🎯'
+          ];
+          const current = this.textContent.trim();
+          let nextFact = facts[Math.floor(Math.random() * facts.length)];
+          // avoid same
+          while (nextFact === current && facts.length > 1) {
+            nextFact = facts[Math.floor(Math.random() * facts.length)];
+          }
+          this.textContent = nextFact;
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
+        });
+      }
+
+      // ---------- 8. CARD ENTRY ANIMATION (bounce) ----------
+      const card = document.getElementById('biodataCard');
+      if (card) {
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.96) translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1) translateY(0)';
+        }, 100);
+      }
+
+      // ---------- 9. RANDOM GLOW ON MOUSE MOVE (subtle) ----------
+      document.addEventListener('mousemove', function(e) {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        const card = document.getElementById('biodataCard');
+        if (card) {
+          const glowX = (x - 0.5) * 6;
+          const glowY = (y - 0.5) * 6;
+          card.style.boxShadow = `
+            0 30px 60px rgba(0,0,0,0.8),
+            0 0 0 1px rgba(255,255,255,0.04),
+            ${glowX}px ${glowY}px 80px rgba(0, 230, 200, 0.03)
+          `;
+        }
+      });
+
+      // ---------- 10. KEYBOARD SHORTCUT: press 'r' to reset some things ----------
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'r' || e.key === 'R') {
+          // reset badge title
+          const badge = document.getElementById('badgeTitle');
+          if (badge) {
+            badge.innerHTML = `<i class="fas fa-bolt" style="margin-right: 6px;"></i> digital architect`;
+          }
+          // reset status
+          const statusEl = document.getElementById('statusValue');
+          if (statusEl) {
+            statusEl.innerHTML = '<span class="status-pulse"></span> open to work';
+          }
+          // reset quote
+          const quoteBlock = document.getElementById('quoteBlock');
+          if (quoteBlock) {
+            const icon = quoteBlock.querySelector('i');
+            quoteBlock.innerHTML = '';
+            quoteBlock.appendChild(icon);
+            quoteBlock.append(' “Design is not just how it looks, but how it works, feels, and evolves.” ');
+            const span = document.createElement('span');
+            span.style.marginLeft = 'auto';
+            span.style.fontStyle = 'normal';
+            span.style.opacity = '0.5';
+            span.style.fontSize = '0.8rem';
+            span.textContent = '— Sounak';
+            quoteBlock.appendChild(span);
+          }
+          // reset avatar speed
+          const avatar = document.getElementById('avatarFrame');
+          if (avatar) {
+            avatar.style.animationDuration = '10s';
+            avatar.style.boxShadow = '0 15px 35px rgba(0, 200, 180, 0.25)';
+          }
+          // small feedback
+          const card = document.getElementById('biodataCard');
+          if (card) {
+            card.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.04), 0 0 60px rgba(0, 230, 200, 0.1)';
+            setTimeout(() => {
+              card.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.04)';
+            }, 400);
+          }
+        }
+      });
+
+      console.log('🚀 Sounak Shit biodata · interactive v3.0');
+    })();
+  </script>
 </body>
 </html>
